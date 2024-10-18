@@ -81,7 +81,16 @@ function ContentHot() {
             }}
           />
         </Grid>
-        <Grid item lg={4.5} xs={12}>
+        <Grid
+          item
+          lg={4.5}
+          xs={12}
+          sx={{
+            marginTop: {
+              md: '24px',
+              xs: '10px',
+            },
+          }}>
           <Box>
             <Box>
               <Box className='w-[60px] bg-[#00bceb]' height='10px'></Box>

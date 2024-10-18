@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { Box, Button, Container, Drawer, List, ListItem, Stack } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
+import { Box, Button, Container, Drawer, Stack } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
@@ -10,12 +10,16 @@ import logo from '@/assets/imgs/logo.png';
 import Search from './Search';
 import Navigation, { menuNavigation } from './Navigation';
 import { MenuIcon } from '../Icons';
+import SiderbarTabletMobile from './SiderbarTabletMobile';
 
 function Header() {
+  const [isOpenSearchMobile, setIsOpenSearchMobile] = useState<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+  const btnSearchRef = useRef<HTMLButtonElement>(null);
 
   // Hàm để mở hoặc đóng Drawer
-  const toggleDrawer = (_: string, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
       event.type === 'keydown' &&
       ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
@@ -24,6 +28,28 @@ function Header() {
     }
     setIsDrawerOpen(open);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Kiểm tra xem click có xảy ra ngoài phần tử Search không
+      if (
+        searchRef.current &&
+        btnSearchRef.current &&
+        !searchRef.current.contains(event.target as Node) &&
+        !btnSearchRef.current.contains(event.target as Node)
+      ) {
+        setIsOpenSearchMobile(false);
+      }
+    };
+
+    if (isOpenSearchMobile) {
+      window.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, [isOpenSearchMobile]);
 
   return (
     <Box
@@ -40,20 +66,60 @@ function Header() {
           <Link href='/'>
             <Image src={logo} alt='Logo page' />
           </Link>
-          {/* icon search và menu icon */}
-          <Box
+          <Search
+            ref={searchRef}
+            sx={{
+              backgroundColor: 'white',
+              display: {
+                xs: isOpenSearchMobile ? 'flex' : 'none',
+                md: 'block',
+              },
+              zIndex: 100,
+              position: {
+                xs: 'absolute',
+                md: 'unset',
+              },
+              left: isOpenSearchMobile ? 0 : 'unset',
+              right: isOpenSearchMobile ? 0 : 'unset',
+              justifyContent: isOpenSearchMobile ? 'center' : 'unset',
+            }}
+          />
+          {isOpenSearchMobile && (
+            <Box
+              className='search-overlary'
+              sx={{
+                position: 'fixed',
+                top: '36px',
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 100,
+                backgroundColor: 'transparent',
+              }}
+            />
+          )}
+          <Navigation
             sx={{
               display: {
-                xs: 'flex',
-                lg: 'none',
+                xs: 'none',
+                lg: 'flex',
               },
+            }}
+          />
+          {/* Tablet and mobile */}
+          {/* icon search và menu icon */}
+          <Stack
+            sx={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
             }}>
             <Button
+              ref={btnSearchRef}
               variant='text'
               sx={{
                 display: {
                   xs: 'block',
-                  lg: 'none',
+                  md: 'none',
                 },
                 padding: '6px 0',
                 fontSize: '24px',
@@ -61,6 +127,10 @@ function Header() {
                 '&:hover': {
                   backgroundColor: 'transparent',
                 },
+              }}
+              onClick={() => {
+                console.log('Open');
+                setIsOpenSearchMobile(true);
               }}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -83,60 +153,29 @@ function Header() {
               </svg>
             </Button>
             <Button
-              onClick={toggleDrawer('right', true)}
+              onClick={toggleDrawer(true)}
               sx={{
+                display: {
+                  lg: 'none',
+                  xs: 'block',
+                },
                 padding: '6px 0',
                 minWidth: '24px',
                 marginLeft: '12px',
               }}>
               <MenuIcon width={24} height={24} />
             </Button>
-          </Box>
-          <Box
-            sx={{
-              display: {
-                lg: 'flex',
-                xs: 'none',
-              },
-              justifyContent: 'space-between',
-            }}>
-            <Search />
-            <Navigation />
-          </Box>
+          </Stack>
           <Drawer
             anchor={'right'}
             open={isDrawerOpen}
-            onClose={toggleDrawer('right', false)}
+            onClose={toggleDrawer(false)}
             sx={{
               '& .MuiPaper-root': {
                 width: '60%',
               },
             }}>
-            <Box className='py-3'>
-              <Stack direction='row' justifyContent='flex-end' className='px-4'>
-                <Button
-                  className='v-[24px] h-[24px] text-xl'
-                  sx={{
-                    minWidth: '24px',
-                    textTransform: 'lowercase',
-                    color: '#ccc',
-                  }}
-                  onClick={toggleDrawer('right', false)}>
-                  x
-                </Button>
-              </Stack>
-              <List>
-                {menuNavigation.map((item, index) => {
-                  return (
-                    <ListItem key={index} className='block w-full p-0'>
-                      <Link href={item.to} className='block w-full h-full py-2 px-4'>
-                        {item.label}
-                      </Link>
-                    </ListItem>
-                  );
-                })}
-              </List>
-            </Box>
+            <SiderbarTabletMobile menu={menuNavigation} closeSliderbar={() => setIsDrawerOpen(false)} />
           </Drawer>
         </Stack>
       </Container>

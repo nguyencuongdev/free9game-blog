@@ -1,39 +1,46 @@
-import { Stack } from '@mui/material';
+import { Stack, SxProps } from '@mui/material';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 
-type MenuNavigationItemType = {
+export type MenuNavigationItemType = {
   label: string;
-  to: string;
+  href: string;
+};
+
+type NavigationProps = {
+  className?: string;
+  sx?: SxProps;
 };
 
 // data fake
 export const menuNavigation: MenuNavigationItemType[] = [
   {
     label: 'Reviews Games',
-    to: '/appreviews',
+    href: '/appreviews',
   },
   {
     label: 'HTML5 Games',
-    to: '/appreviews',
+    href: '/appreviews',
   },
   {
     label: 'Blog',
-    to: '/appreviews',
+    href: '/appreviews',
   },
   {
     label: ' About us',
-    to: '/appreviews',
+    href: '/appreviews',
   },
 ];
 
-function Navigation() {
+function Navigation(props: NavigationProps) {
+  const { className, sx } = props;
+
   return (
-    <Stack direction='row'>
+    <Stack direction='row' className={className} sx={{ ...sx }}>
       {menuNavigation.map((item, index) => (
         <Link
           key={index}
-          href={item.to}
+          href={item.href}
           className={twMerge('flex px-4 text-sm last-of-type:pr-0 text-[#0b111f80] items-center hover:text-[#00bceb]')}>
           {item.label}
         </Link>
