@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import '@/assets/scss/globals.scss';
 import { poppins } from '@/assets/fonts';
 import { DefaultLayout } from '@/layouts';
 
