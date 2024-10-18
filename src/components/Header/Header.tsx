@@ -4,12 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { Box, Button, Container, Drawer, Stack } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { twMerge } from 'tailwind-merge';
 
 import logo from '@/assets/imgs/logo.png';
 import Search from './Search';
 import Navigation, { menuNavigation } from './Navigation';
-import { MenuIcon } from '../Icons';
+import { MenuIcon, SearchIcon } from '../Icons';
 import SiderbarTabletMobile from './SiderbarTabletMobile';
 
 function Header() {
@@ -53,7 +52,7 @@ function Header() {
 
   return (
     <Box
-      className={twMerge('py-2')}
+      className='py-2'
       sx={{
         boxShadow: '0 2px 15px rgba(11, 17, 31, .08)',
         marginBottom: {
@@ -132,25 +131,7 @@ function Header() {
                 console.log('Open');
                 setIsOpenSearchMobile(true);
               }}>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='24px'
-                height='24px'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='#7a7a7a'>
-                <g id='SVGRepo_bgCarrier' />
-
-                <g id='SVGRepo_tracerCarrier' />
-
-                <g id='SVGRepo_iconCarrier'>
-                  {' '}
-                  <path
-                    d='M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z'
-                    stroke='#7a7a7a'
-                  />{' '}
-                </g>
-              </svg>
+              <SearchIcon />
             </Button>
             <Button
               onClick={toggleDrawer(true)}

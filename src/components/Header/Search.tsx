@@ -2,7 +2,8 @@
 
 import { forwardRef } from 'react';
 import { Box, Button, SxProps, TextField } from '@mui/material';
-import { twMerge } from 'tailwind-merge';
+import { SearchIcon } from '../Icons';
+import { cn } from '@/utils';
 
 type SearchProps = {
   className?: string;
@@ -14,9 +15,7 @@ function Search(props: SearchProps, ref: React.ForwardedRef<HTMLDivElement>) {
 
   return (
     <Box className={className} sx={{ ...sx }} ref={ref}>
-      <form
-        method='POST'
-        className={twMerge('border max-w-[330px] w-[330px] h-[34px] rounded-md overflow-hidden flex')}>
+      <form method='POST' className={cn('border max-w-[330px] w-[330px] h-[34px] rounded-md overflow-hidden flex')}>
         <TextField
           placeholder='Search games here'
           name='searchValue'
@@ -52,25 +51,7 @@ function Search(props: SearchProps, ref: React.ForwardedRef<HTMLDivElement>) {
               backgroundColor: 'transparent',
             },
           }}>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='16px'
-            height='16px'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='#7a7a7a'>
-            <g id='SVGRepo_bgCarrier' />
-
-            <g id='SVGRepo_tracerCarrier' />
-
-            <g id='SVGRepo_iconCarrier'>
-              {' '}
-              <path
-                d='M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z'
-                stroke='#7a7a7a'
-              />{' '}
-            </g>
-          </svg>
+          <SearchIcon />
         </Button>
       </form>
     </Box>
