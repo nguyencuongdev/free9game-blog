@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { ContentNewItem } from '@/components';
+import { ContentNewItem, ContentNewItemByColumn } from '@/components';
 
 import imgNewLarge from '@/assets/imgs/topapps1.jpg';
 import imgNew2 from '@/assets/imgs/topapps2.jpg';
@@ -114,7 +114,16 @@ function ContentTopApps() {
             />
           </Grid>
           {/* Nội dung nhỏ bên phải */}
-          <Grid item lg={4.5} xs={12}>
+          <Grid
+            item
+            lg={4.5}
+            xs={12}
+            sx={{
+              display: {
+                lg: 'block',
+                xs: 'none',
+              },
+            }}>
             {dataContentTopApps.slice(1, 3).map((item, index) => {
               return (
                 <Box
@@ -136,7 +145,7 @@ function ContentTopApps() {
               );
             })}
           </Grid>
-          {/* Nội dung nhỏ bên dưới */}
+          {/* Nội dung nhỏ bên dưới theo PC*/}
           <Grid
             item
             container
@@ -145,7 +154,7 @@ function ContentTopApps() {
             sx={{
               display: {
                 xs: 'none',
-                md: 'flex',
+                lg: 'flex',
               },
             }}>
             {dataContentTopApps.slice(3, dataContentTopApps.length).map((item, index) => {
@@ -155,6 +164,63 @@ function ContentTopApps() {
                     sm
                     key={index}
                     heightImg='200px'
+                    href={`/blog/${item.type}/${item.title}`}
+                    srcImg={item.srcImg}
+                    type={item.type}
+                    title={item.title}
+                    createAt={item.createAt}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          {/* Nội dung nhỏ bên dưới theo tablet*/}
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={3}
+            sx={{
+              display: {
+                xs: 'none',
+                lg: 'none',
+                md: 'flex',
+              },
+            }}>
+            {dataContentTopApps.slice(1, 5).map((item, index) => {
+              return (
+                <Grid item lg={4} key={index} xs={12} md={6}>
+                  <ContentNewItem
+                    sm
+                    key={index}
+                    heightImg='200px'
+                    href={`/blog/${item.type}/${item.title}`}
+                    srcImg={item.srcImg}
+                    type={item.type}
+                    title={item.title}
+                    createAt={item.createAt}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          {/* Nội dung nhỏ bên dưới theo column theo mobile*/}
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={3}
+            sx={{
+              display: {
+                md: 'none',
+                xs: 'flex',
+              },
+            }}>
+            {dataContentTopApps.slice(1, 6).map((item, index) => {
+              return (
+                <Grid item lg={4} key={index} xs={12} md={6}>
+                  <ContentNewItemByColumn
+                    key={index}
                     href={`/blog/${item.type}/${item.title}`}
                     srcImg={item.srcImg}
                     type={item.type}

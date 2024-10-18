@@ -10,7 +10,7 @@ import imgTopGame1 from '@/assets/imgs/topgamel1.jpg';
 import imgTopGame3 from '@/assets/imgs/topgamel3.jpg';
 import imgTopGame4 from '@/assets/imgs/gameReivew1.png';
 
-import { ContentNewItem, ContentNewReviewPopularSmall } from '@/components';
+import { ContentNewItem, ContentNewItemByColumn, ContentNewReviewPopularSmall } from '@/components';
 
 const dataContentTopGames = [
   {
@@ -166,7 +166,7 @@ function ContentTopGames() {
               })}
             </Box>
           </Grid>
-          {/* Nội dung nhỏ bên dưới */}
+          {/* Nội dung nhỏ bên dưới theo PC */}
           <Grid
             item
             container
@@ -174,16 +174,72 @@ function ContentTopGames() {
             spacing={3}
             sx={{
               display: {
+                lg: 'flex',
                 xs: 'none',
-                md: 'flex',
               },
             }}>
             {dataContentTopGames.slice(5, dataContentTopGames.length).map((item, index) => {
               return (
-                <Grid item lg={4} key={index}>
+                <Grid item lg={4} key={index} md={6} xs={12}>
                   <ContentNewItem
                     heightImg='200px'
                     sm
+                    href={`/blog/${item.type}/${item.title}`}
+                    srcImg={item.srcImg}
+                    type={item.type}
+                    title={item.title}
+                    createAt={item.createAt}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          {/* Nội dung nhỏ bên dưới trên tablet*/}
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={3}
+            sx={{
+              display: {
+                lg: 'none',
+                md: 'flex',
+                xs: 'none',
+              },
+            }}>
+            {dataContentTopGames.slice(5, dataContentTopGames.length).map((item, index) => {
+              return (
+                <Grid item lg={4} key={index} md={6} xs={12}>
+                  <ContentNewItem
+                    heightImg='200px'
+                    sm
+                    href={`/blog/${item.type}/${item.title}`}
+                    srcImg={item.srcImg}
+                    type={item.type}
+                    title={item.title}
+                    createAt={item.createAt}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          {/* Nội dung nhỏ bên dưới theo column trên mobile*/}
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={3}
+            sx={{
+              display: {
+                md: 'none',
+                xs: 'flex',
+              },
+            }}>
+            {dataContentTopGames.slice(5, dataContentTopGames.length).map((item, index) => {
+              return (
+                <Grid item lg={4} key={index} xs={12} md={6}>
+                  <ContentNewItemByColumn
+                    key={index}
                     href={`/blog/${item.type}/${item.title}`}
                     srcImg={item.srcImg}
                     type={item.type}

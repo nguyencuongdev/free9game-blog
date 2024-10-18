@@ -32,7 +32,6 @@ function ContentNewItem(props: ContentNewItemProps) {
       <Link href={href}>
         <Box
           height={heightImg ? heightImg : lg ? '359px' : sm ? '200px' : ''}
-          width='100%'
           className='relative content-img'
           sx={{
             marginBottom: {
@@ -47,7 +46,14 @@ function ContentNewItem(props: ContentNewItemProps) {
             },
           }}>
           <Image src={srcImg} alt='ảnh news blog' fill={true} />
-          <Typography className='uppercase text-white absolute top-3 left-3 bg-[#00bceb] py-[6px] px-[10px] font-bold rounded-md'>
+          <Typography
+            className='uppercase text-white absolute top-3 left-3 bg-[#00bceb] font-bold rounded-md'
+            sx={{
+              padding: {
+                xs: '4px 8px',
+                lg: '6px 10px',
+              },
+            }}>
             {type}
           </Typography>
         </Box>

@@ -63,7 +63,7 @@ function MenuContent() {
               '::after': {
                 display: 'block',
                 content: '""',
-                width: '2px',
+                width: '1px',
                 height: '14px',
                 position: 'absolute',
                 top: '50%',

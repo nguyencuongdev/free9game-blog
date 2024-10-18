@@ -68,8 +68,8 @@ function ContentSlider() {
   const Slidersettings = {
     dots: true, // Kích hoạt nút điều hướng
     infinite: true,
-    // autoplay: true,
-    autoplaySpeed: 3000,
+    autoplay: true,
+    autoplaySpeed: 2500,
     speed: 500,
     slidesToShow: isLg ? 3 : isMd ? 2 : 1,
     slidesToScroll: 1,

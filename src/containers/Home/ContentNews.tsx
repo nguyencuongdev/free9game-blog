@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { ContentNewItem } from '@/components';
+import { ContentNewItem, ContentNewItemByColumn } from '@/components';
 
 import imgNewLarge from '@/assets/imgs/newsnewLarge.jpg';
 import imgNew2 from '@/assets/imgs/newsgame2.jpg';
@@ -17,7 +17,7 @@ const dataContentNews = [
     srcImg: imgNewLarge.src,
     description:
       'Introduction “League of Legends” (LoL) has been a dominant force in the gaming industry since its launch in 2009. Developed by Riot Games, it has attracted millions of players globally, thanks to its engaging gameplay, dynamic updates, and competitive scene. However, the journey of LoL has not been without its challenges, particularly concerning its matchmaking',
-    type: 'New',
+    type: 'News',
     createAt: 'September 18, 2024',
   },
   {
@@ -77,6 +77,7 @@ function ContentNews() {
           <Typography className='text-[#0b111f80]'>Fresh game news from our editors</Typography>
         </Box>
         <Grid container spacing={3}>
+          {/* Nội dung lớn */}
           <Grid
             item
             lg={7.5}
@@ -115,7 +116,16 @@ function ContentNews() {
             />
           </Grid>
           {/* Nội dung nhỏ bên phải */}
-          <Grid item lg={4.5} xs={12}>
+          <Grid
+            item
+            lg={4.5}
+            xs={12}
+            sx={{
+              display: {
+                lg: 'block',
+                xs: 'none',
+              },
+            }}>
             {dataContentNews.slice(1, 3).map((item, index) => {
               return (
                 <Box
@@ -137,7 +147,7 @@ function ContentNews() {
               );
             })}
           </Grid>
-          {/* Nội dung nhỏ bên dưới */}
+          {/* Nội dung nhỏ bên dưới trên PC*/}
           <Grid
             item
             container
@@ -145,17 +155,74 @@ function ContentNews() {
             spacing={3}
             sx={{
               display: {
+                lg: 'flex',
                 xs: 'none',
-                md: 'flex',
               },
             }}>
             {dataContentNews.slice(3, dataContentNews.length).map((item, index) => {
               return (
-                <Grid item lg={4} key={index}>
+                <Grid item lg={4} key={index} xs={12} md={12}>
                   <ContentNewItem
                     sm
                     key={index}
                     heightImg='200px'
+                    href={`/blog/${item.type}/${item.title}`}
+                    srcImg={item.srcImg}
+                    type={item.type}
+                    title={item.title}
+                    createAt={item.createAt}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          {/* Nội dung nhỏ bên dưới theo tablet */}
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={3}
+            sx={{
+              display: {
+                md: 'flex',
+                xs: 'none',
+                lg: 'none',
+              },
+            }}>
+            {dataContentNews.slice(1, 5).map((item, index) => {
+              return (
+                <Grid item lg={4} key={index} xs={12} md={6}>
+                  <ContentNewItem
+                    sm
+                    key={index}
+                    heightImg='200px'
+                    href={`/blog/${item.type}/${item.title}`}
+                    srcImg={item.srcImg}
+                    type={item.type}
+                    title={item.title}
+                    createAt={item.createAt}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          {/* Nội dung nhỏ bên dưới theo column trên mobile*/}
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={3}
+            sx={{
+              display: {
+                md: 'none',
+                xs: 'flex',
+              },
+            }}>
+            {dataContentNews.slice(1, 5).map((item, index) => {
+              return (
+                <Grid item lg={4} key={index} xs={12} md={6}>
+                  <ContentNewItemByColumn
+                    key={index}
                     href={`/blog/${item.type}/${item.title}`}
                     srcImg={item.srcImg}
                     type={item.type}

@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { ContentNewItem } from '@/components';
+import { ContentNewItem, ContentNewItemByColumn } from '@/components';
 
 import imgNewLarge from '@/assets/imgs/tipgiude1.jpg';
 import imgNew2 from '@/assets/imgs/tipgiude2.jpg';
@@ -114,7 +114,16 @@ function ContentTipGuide() {
             />
           </Grid>
           {/* Nội dung nhỏ bên phải */}
-          <Grid item lg={4.5} xs={12}>
+          <Grid
+            item
+            lg={4.5}
+            xs={12}
+            sx={{
+              display: {
+                lg: 'block',
+                xs: 'none',
+              },
+            }}>
             {dataContentNews.slice(1, 3).map((item, index) => {
               return (
                 <Box
@@ -145,7 +154,7 @@ function ContentTipGuide() {
             sx={{
               display: {
                 xs: 'none',
-                md: 'flex',
+                lg: 'flex',
               },
             }}>
             {dataContentNews.slice(3, dataContentNews.length).map((item, index) => {
@@ -155,6 +164,63 @@ function ContentTipGuide() {
                     sm
                     key={index}
                     heightImg='200px'
+                    href={`/blog/${item.type}/${item.title}`}
+                    srcImg={item.srcImg}
+                    type={item.type}
+                    title={item.title}
+                    createAt={item.createAt}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          {/* Nội dung nhỏ bên dưới theo tablet*/}
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={3}
+            sx={{
+              display: {
+                xs: 'none',
+                md: 'flex',
+                lg: 'none',
+              },
+            }}>
+            {dataContentNews.slice(1, 5).map((item, index) => {
+              return (
+                <Grid item lg={4} key={index} md={6} xs={12}>
+                  <ContentNewItem
+                    sm
+                    key={index}
+                    heightImg='200px'
+                    href={`/blog/${item.type}/${item.title}`}
+                    srcImg={item.srcImg}
+                    type={item.type}
+                    title={item.title}
+                    createAt={item.createAt}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          {/* Nội dung nhỏ bên dưới theo column*/}
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={3}
+            sx={{
+              display: {
+                md: 'none',
+                xs: 'flex',
+              },
+            }}>
+            {dataContentNews.slice(1, 6).map((item, index) => {
+              return (
+                <Grid item lg={4} key={index} xs={12} md={6}>
+                  <ContentNewItemByColumn
+                    key={index}
                     href={`/blog/${item.type}/${item.title}`}
                     srcImg={item.srcImg}
                     type={item.type}

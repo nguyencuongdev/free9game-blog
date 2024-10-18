@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
-import { Box } from '@mui/material';
-
-import '../globals.css';
+import './globals.css';
 import { poppins } from '@/assets/fonts';
-import { Header, Footer } from '@/components';
+import { DefaultLayout } from '@/layouts';
 
 export const metadata: Metadata = {
   title: 'Ultimate H5 Games Portal',
@@ -19,9 +17,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${poppins.className} antialiased`}>
-        <Header />
-        <Box>{children}</Box>
-        <Footer />
+        <DefaultLayout>{children}</DefaultLayout>
       </body>
     </html>
   );

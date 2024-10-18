@@ -68,13 +68,13 @@ function FooterMenu(props: FooterMenuProps) {
 function FooterMenus() {
   return (
     <>
-      <Grid item lg={2} xs={6}>
+      <Grid item lg={2} xs={6} md={4}>
         <FooterMenu data={menuBlog.children} title={menuBlog.title} />
       </Grid>
-      <Grid item lg={2} xs={6}>
+      <Grid item lg={2} xs={6} md={4}>
         <FooterMenu data={menuLatestReview.children} title={menuLatestReview.title} />
       </Grid>
-      <Grid item lg={2} xs={6}>
+      <Grid item lg={2} xs={6} md={4}>
         <FooterMenu data={menuContact.children} title={menuContact.title} />
       </Grid>
     </>

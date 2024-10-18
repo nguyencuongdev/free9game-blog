@@ -5,7 +5,6 @@ import { Box, Button, Container, Drawer, List, ListItem, Stack } from '@mui/mate
 import Image from 'next/image';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
-import { useMediaQuery, useTheme } from '@mui/material';
 
 import logo from '@/assets/imgs/logo.png';
 import Search from './Search';
@@ -13,9 +12,6 @@ import Navigation, { menuNavigation } from './Navigation';
 import { MenuIcon } from '../Icons';
 
 function Header() {
-  const theme = useTheme();
-  const isLg = useMediaQuery(theme.breakpoints.up('lg'));
-  const isSm = useMediaQuery(theme.breakpoints.down('sm'));
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
   // Hàm để mở hoặc đóng Drawer
@@ -44,63 +40,76 @@ function Header() {
           <Link href='/'>
             <Image src={logo} alt='Logo page' />
           </Link>
-          {!isLg ? (
-            <Box>
-              {isSm && (
-                <Button
-                  variant='text'
-                  sx={{
-                    padding: '6px 0',
-                    fontSize: '24px',
-                    minWidth: '24px',
-                    '&:hover': {
-                      backgroundColor: 'transparent',
-                    },
-                  }}>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width='24px'
-                    height='24px'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='#7a7a7a'>
-                    <g id='SVGRepo_bgCarrier' />
+          {/* icon search và menu icon */}
+          <Box
+            sx={{
+              display: {
+                xs: 'flex',
+                lg: 'none',
+              },
+            }}>
+            <Button
+              variant='text'
+              sx={{
+                display: {
+                  xs: 'block',
+                  lg: 'none',
+                },
+                padding: '6px 0',
+                fontSize: '24px',
+                minWidth: '24px',
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                },
+              }}>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24px'
+                height='24px'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='#7a7a7a'>
+                <g id='SVGRepo_bgCarrier' />
 
-                    <g id='SVGRepo_tracerCarrier' />
+                <g id='SVGRepo_tracerCarrier' />
 
-                    <g id='SVGRepo_iconCarrier'>
-                      {' '}
-                      <path
-                        d='M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z'
-                        stroke='#7a7a7a'
-                      />{' '}
-                    </g>
-                  </svg>
-                </Button>
-              )}
-              <Button
-                onClick={toggleDrawer('right', true)}
-                sx={{
-                  padding: '6px 0',
-                  minWidth: '24px',
-                  marginLeft: '12px',
-                }}>
-                <MenuIcon width={24} height={24} />
-              </Button>
-            </Box>
-          ) : (
-            <>
-              <Search />
-              <Navigation />
-            </>
-          )}
+                <g id='SVGRepo_iconCarrier'>
+                  {' '}
+                  <path
+                    d='M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z'
+                    stroke='#7a7a7a'
+                  />{' '}
+                </g>
+              </svg>
+            </Button>
+            <Button
+              onClick={toggleDrawer('right', true)}
+              sx={{
+                padding: '6px 0',
+                minWidth: '24px',
+                marginLeft: '12px',
+              }}>
+              <MenuIcon width={24} height={24} />
+            </Button>
+          </Box>
+          <Box
+            sx={{
+              display: {
+                lg: 'flex',
+                xs: 'none',
+              },
+              justifyContent: 'space-between',
+            }}>
+            <Search />
+            <Navigation />
+          </Box>
           <Drawer
             anchor={'right'}
             open={isDrawerOpen}
             onClose={toggleDrawer('right', false)}
             sx={{
               '& .MuiPaper-root': {
-                width: '40%',
+                width: '60%',
               },
             }}>
             <Box className='py-3'>

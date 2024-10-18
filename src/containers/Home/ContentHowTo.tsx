@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { ContentNewItem } from '@/components';
+import { ContentNewItem, ContentNewItemByColumn } from '@/components';
 
 import imgNewLarge from '@/assets/imgs/howto1.jpg';
 import imgNew2 from '@/assets/imgs/howto2.jpg';
@@ -84,7 +84,7 @@ function ContentHowTo() {
             sx={{
               display: {
                 xs: 'none',
-                md: 'block',
+                lg: 'block',
               },
             }}>
             {dataContentNews.slice(1, 3).map((item, index) => {
@@ -108,6 +108,7 @@ function ContentHowTo() {
               );
             })}
           </Grid>
+          {/* Nội dung lớn */}
           <Grid
             item
             lg={7.5}
@@ -154,7 +155,7 @@ function ContentHowTo() {
             sx={{
               display: {
                 xs: 'none',
-                md: 'flex',
+                lg: 'flex',
               },
             }}>
             {dataContentNews.slice(3, dataContentNews.length).map((item, index) => {
@@ -164,6 +165,63 @@ function ContentHowTo() {
                     sm
                     key={index}
                     heightImg='200px'
+                    href={`/blog/${item.type}/${item.title}`}
+                    srcImg={item.srcImg}
+                    type={item.type}
+                    title={item.title}
+                    createAt={item.createAt}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          {/* Nội dung nhỏ bên dưới theo tablet */}
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={3}
+            sx={{
+              display: {
+                xs: 'none',
+                lg: 'none',
+                md: 'flex',
+              },
+            }}>
+            {dataContentNews.slice(1, 5).map((item, index) => {
+              return (
+                <Grid item lg={4} key={index} md={6} xs={12}>
+                  <ContentNewItem
+                    sm
+                    key={index}
+                    heightImg='200px'
+                    href={`/blog/${item.type}/${item.title}`}
+                    srcImg={item.srcImg}
+                    type={item.type}
+                    title={item.title}
+                    createAt={item.createAt}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+          {/* Nội dung nhỏ bên dưới theo column trên mobile*/}
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={3}
+            sx={{
+              display: {
+                md: 'none',
+                xs: 'flex',
+              },
+            }}>
+            {dataContentNews.slice(1, 6).map((item, index) => {
+              return (
+                <Grid item lg={4} key={index} xs={12} md={6}>
+                  <ContentNewItemByColumn
+                    key={index}
                     href={`/blog/${item.type}/${item.title}`}
                     srcImg={item.srcImg}
                     type={item.type}
