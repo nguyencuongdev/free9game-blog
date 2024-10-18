@@ -1,7 +1,9 @@
+'use client';
+import { useEffect, useState } from 'react';
 import { Box, Button } from '@mui/material';
 import Link from 'next/link';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import { getContentHomePageSerive } from '@/services';
+import { INewsGame } from '@/types';
 
 import {
   MenuContent,
@@ -15,6 +17,20 @@ import {
 } from '@/containers/Home';
 
 export default function Home() {
+  const [blogHotList, setBlogHotList] = useState<INewsGame[] | null>(null);
+  const [newsGamesList, setNewsGamesList] = useState<INewsGame[] | null>(null);
+
+  useEffect(() => {
+    const getContent = async () => {
+      const response = await getContentHomePageSerive();
+      console.log(response.data);
+      const { blogHots, news } = response.data;
+      setBlogHotList(blogHots);
+      setNewsGamesList(news);
+    };
+    getContent();
+  }, []);
+
   return (
     <Box>
       <Box
@@ -26,8 +42,8 @@ export default function Home() {
         }}>
         <MenuContent />
       </Box>
-      <ContentHot />
-      <ContentNews />
+      {blogHotList && Array.isArray(blogHotList) && <ContentHot data={blogHotList} />}
+      {newsGamesList && Array.isArray(blogHotList) && <ContentNews data={newsGamesList} />}
       <ContentSlider />
       <ContentTopGames />
       <ContentTopApps />

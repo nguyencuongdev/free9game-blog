@@ -1,46 +1,14 @@
-'use client';
-
 import { Box, Container, Grid, List, Typography } from '@mui/material';
-import imgNewHot from '@/assets/imgs/newhot.jpg';
-
 import { ContentNewItem, ContentNewLastest } from '@/components';
+import { INewsGame } from '@/types';
 
-const dataContentHot = {
-  id: 1,
-  title: 'How to Master The Legend of Zelda: Tears of the Kingdom',
-  srcImg: imgNewHot.src,
-  type: 'How-to',
-  createAt: 'September 18, 2024',
+type ContentHotProps = {
+  data: INewsGame[];
 };
 
-const dataContentLastest = [
-  {
-    id: 1,
-    title: 'Comprehensive Tips & Guides for “Hogwarts Legacy”',
-    type: 'tips-guides',
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 2,
-    title: 'The Evolution of Matchmaking in “League of Legends”: A Deep Dive into the Ranking System',
-    type: 'tips-guides',
-    createAt: 'September 17, 2024',
-  },
-  {
-    id: 3,
-    title: 'How to Become a Pro in League of Legends: A Comprehensive Guide',
-    type: 'tips-guides',
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 4,
-    title: 'Mastering “Minecraft”: Tips and Guides for Success',
-    type: 'típs-guides',
-    createAt: 'September 18, 2024',
-  },
-];
+function ContentHot(props: ContentHotProps) {
+  const { data } = props;
 
-function ContentHot() {
   return (
     <Container>
       <Grid container>
@@ -60,11 +28,11 @@ function ContentHot() {
           }}>
           <ContentNewItem
             lg
-            href={`/blog/${dataContentHot.type}/${dataContentHot.title}`}
-            srcImg={dataContentHot.srcImg}
-            type={dataContentHot.type}
-            title={dataContentHot.title}
-            createAt={dataContentHot.createAt}
+            href={`/detail-blog/${data[0].slug}`}
+            srcImg={data[0]?.banner}
+            type='Hot'
+            title={data[0].name}
+            createAt={data[0].createTime}
             sx={{
               '& .content-img': {
                 height: {
@@ -100,14 +68,14 @@ function ContentHot() {
             </Typography>
           </Box>
           <List className='py-0 px-0'>
-            {dataContentLastest.map((item, index) => {
+            {data.slice(1, data.length).map((item, index) => {
               return (
                 <ContentNewLastest
                   key={index}
-                  href={`/blog/${item.type}/${item.title}`}
-                  title={item.title}
+                  href={`/detail-blog/${item.slug}`}
+                  title={item.name}
                   index={index + 1}
-                  createAt={item.createAt}
+                  createAt={'September 14 2024'}
                 />
               );
             })}

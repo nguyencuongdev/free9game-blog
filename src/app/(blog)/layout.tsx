@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import '@/assets/scss/globals.scss';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import { poppins } from '@/assets/fonts';
 import { DefaultLayout } from '@/layouts';
 

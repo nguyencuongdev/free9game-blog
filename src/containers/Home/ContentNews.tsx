@@ -1,69 +1,13 @@
-'use client';
-
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { ContentNewItem, ContentNewItemByColumn } from '@/components';
+import { INewsGame } from '@/types';
 
-import imgNewLarge from '@/assets/imgs/newsnewLarge.jpg';
-import imgNew2 from '@/assets/imgs/newsgame2.jpg';
-import imgNew3 from '@/assets/imgs/newsgame3.jpg';
-import imgNew4 from '@/assets/imgs/newsgame4.jpg';
-import imgNew5 from '@/assets/imgs/newsgame5.jpg';
-import imgNew6 from '@/assets/imgs/newsgame6.jpg';
+type ContentNewsProps = {
+  data: INewsGame[];
+};
 
-const dataContentNews = [
-  {
-    id: 1,
-    title: 'The Evolution of Matchmaking in “League of Legends”: A Deep Dive into the Ranking System',
-    srcImg: imgNewLarge.src,
-    description:
-      'Introduction “League of Legends” (LoL) has been a dominant force in the gaming industry since its launch in 2009. Developed by Riot Games, it has attracted millions of players globally, thanks to its engaging gameplay, dynamic updates, and competitive scene. However, the journey of LoL has not been without its challenges, particularly concerning its matchmaking',
-    type: 'News',
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 2,
-    title: 'The Fallout of “Starfield”’s Starship Customization System: A Deep Dive into Its Limitations',
-    srcImg: imgNew2.src,
-    type: 'News',
-    description: '',
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 3,
-    title: 'The Battle Pass System in Fortnite: An In-Depth Analysis of Its Impact and Challenges',
-    srcImg: imgNew3.src,
-    type: 'News',
-    description: '',
-
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 4,
-    title: 'The Microtransaction Controversy in “FIFA”: How Ultimate Team Transformed the Gaming Landscape ',
-    srcImg: imgNew4.src,
-    type: 'News',
-    description: '',
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 5,
-    title: 'The Economic Ecosystem of Fortnite: A Deep Dive into Microtransactions and Player Retention ',
-    srcImg: imgNew5.src,
-    type: 'News',
-    description: '',
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 6,
-    title: ' The Challenge of AI-Driven Difficulty Scaling in “Black Myth: Wukong” ',
-    srcImg: imgNew6.src,
-    description: '',
-    type: 'News',
-    createAt: 'September 18, 2024',
-  },
-];
-
-function ContentNews() {
+function ContentNews(props: ContentNewsProps) {
+  const { data } = props;
   return (
     <Container>
       <Box marginTop='48px'>
@@ -93,12 +37,12 @@ function ContentNews() {
             <ContentNewItem
               heightImg='420px'
               lg
-              href={`/blog/${dataContentNews[0].type}/${dataContentNews[0].title}`}
-              srcImg={dataContentNews[0].srcImg}
-              type={dataContentNews[0].type}
-              title={dataContentNews[0].title}
-              description={dataContentNews[0].description}
-              createAt={dataContentNews[0].createAt}
+              href={`/detail-blog/${data[0].slug}}`}
+              srcImg={data[0].banner}
+              type='News'
+              title={data[0].name}
+              description={data[0].shortContent}
+              createAt={data[0].createTime}
               sx={{
                 '& .content-img': {
                   height: {
@@ -126,7 +70,7 @@ function ContentNews() {
                 xs: 'none',
               },
             }}>
-            {dataContentNews.slice(1, 3).map((item, index) => {
+            {data.slice(1, 3).map((item, index) => {
               return (
                 <Box
                   sx={{
@@ -137,11 +81,11 @@ function ContentNews() {
                     sm
                     key={index}
                     heightImg='200px'
-                    href={`/blog/${item.type}/${item.title}`}
-                    srcImg={item.srcImg}
-                    type={item.type}
-                    title={item.title}
-                    createAt={item.createAt}
+                    href={`/detail-blog/${item.slug}`}
+                    srcImg={item.banner}
+                    type='News'
+                    title={item.name}
+                    createAt={item.createTime}
                   />
                 </Box>
               );
@@ -159,18 +103,18 @@ function ContentNews() {
                 xs: 'none',
               },
             }}>
-            {dataContentNews.slice(3, dataContentNews.length).map((item, index) => {
+            {data.slice(3, data.length).map((item, index) => {
               return (
                 <Grid item lg={4} key={index} xs={12} md={12}>
                   <ContentNewItem
                     sm
                     key={index}
                     heightImg='200px'
-                    href={`/blog/${item.type}/${item.title}`}
-                    srcImg={item.srcImg}
-                    type={item.type}
-                    title={item.title}
-                    createAt={item.createAt}
+                    href={`/detail-blog/${item.slug}`}
+                    srcImg={item.banner}
+                    type='News'
+                    title={item.name}
+                    createAt={item.createTime}
                   />
                 </Grid>
               );
@@ -189,18 +133,18 @@ function ContentNews() {
                 lg: 'none',
               },
             }}>
-            {dataContentNews.slice(1, 5).map((item, index) => {
+            {data.slice(1, 5).map((item, index) => {
               return (
                 <Grid item lg={4} key={index} xs={12} md={6}>
                   <ContentNewItem
                     sm
                     key={index}
                     heightImg='200px'
-                    href={`/blog/${item.type}/${item.title}`}
-                    srcImg={item.srcImg}
-                    type={item.type}
-                    title={item.title}
-                    createAt={item.createAt}
+                    href={`/detail-blog/${item.slug}`}
+                    srcImg={item.banner}
+                    type='News'
+                    title={item.name}
+                    createAt={item.createTime}
                   />
                 </Grid>
               );
@@ -218,16 +162,16 @@ function ContentNews() {
                 xs: 'flex',
               },
             }}>
-            {dataContentNews.slice(1, 5).map((item, index) => {
+            {data.slice(1, 5).map((item, index) => {
               return (
                 <Grid item lg={4} key={index} xs={12} md={6}>
                   <ContentNewItemByColumn
                     key={index}
-                    href={`/blog/${item.type}/${item.title}`}
-                    srcImg={item.srcImg}
-                    type={item.type}
-                    title={item.title}
-                    createAt={item.createAt}
+                    href={`/detail-blog/${item.slug}`}
+                    srcImg={item.banner}
+                    type='News'
+                    title={item.name}
+                    createAt={item.createTime}
                   />
                 </Grid>
               );
