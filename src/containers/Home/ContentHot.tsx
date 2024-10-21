@@ -28,11 +28,11 @@ function ContentHot(props: ContentHotProps) {
           }}>
           <ContentNewItem
             lg
-            href={`/detail-blog/${data[0].slug}`}
-            srcImg={data[0]?.banner}
+            slug={data[0].slug}
+            image={data[0]?.banner}
             type='Hot'
-            title={data[0].name}
-            createAt={data[0].createTime}
+            name={data[0].name}
+            createTime={data[0].createTime}
             sx={{
               '& .content-img': {
                 height: {
@@ -72,10 +72,11 @@ function ContentHot(props: ContentHotProps) {
               return (
                 <ContentNewLastest
                   key={index}
-                  href={`/detail-blog/${item.slug}`}
+                  slug={item.slug}
                   title={item.name}
                   index={index + 1}
-                  createAt={'September 14 2024'}
+                  type={item.type}
+                  creatTime={item.createTime}
                 />
               );
             })}

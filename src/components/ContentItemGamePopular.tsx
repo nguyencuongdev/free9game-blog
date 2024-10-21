@@ -2,18 +2,19 @@ import { Box, Rating, Stack, SxProps, Typography } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
 
-type ContentNewReviewProps = {
+type ContentItemGamePopularProps = {
   className?: string;
   sx?: SxProps;
-  srcImg: string;
-  title: string;
-  href: string;
-  description?: string;
-  rating: number;
+  gameDescription: string;
+  gameName: string;
+  gameRating: number;
+  imageGame: string;
+  slug: string;
+  type?: string;
 };
 
-function ContentNewReview(props: ContentNewReviewProps) {
-  const { className, sx, srcImg, title, href, description, rating } = props;
+function ContentItemGamePopular(props: ContentItemGamePopularProps) {
+  const { className, sx, imageGame, gameName, type, slug, gameDescription, gameRating } = props;
 
   return (
     <Box
@@ -25,7 +26,7 @@ function ContentNewReview(props: ContentNewReviewProps) {
         ...sx,
       }}>
       <Box className='bg-white rounded-md'>
-        <Link href={href}>
+        <Link href={`/blog/${type}/${slug}`}>
           <Stack
             direction='row'
             spacing={3}
@@ -40,10 +41,10 @@ function ContentNewReview(props: ContentNewReviewProps) {
                   borderRadius: '6px',
                 },
               }}>
-              <Image src={srcImg} alt='game review 1' width={100} height={100} />
+              <Image src={imageGame} alt='game review 1' width={100} height={100} />
             </Box>
             <Typography className='content-title font-bold text-[18px]' variant='h5'>
-              {title}
+              {gameName}
             </Typography>
           </Stack>
           <Typography
@@ -55,12 +56,12 @@ function ContentNewReview(props: ContentNewReviewProps) {
               overflow: 'hidden',
               textOverflow: 'ellipsis',
             }}>
-            {description}
+            {gameDescription}
           </Typography>
         </Link>
         <Stack direction='row' justifyContent='space-between' alignItems='center' paddingBottom='20px' className='px-6'>
-          <Rating name='simple-controlled' value={rating} readOnly />
-          <Link href='/review-game/1' className='text-sm text-[#00bceb] font-semibold hover:underline'>
+          <Rating name='simple-controlled' value={gameRating} readOnly />
+          <Link href={`/blog/${type}/${slug}`} className='text-sm text-[#00bceb] font-semibold hover:underline'>
             Read full review
           </Link>
         </Stack>
@@ -69,4 +70,4 @@ function ContentNewReview(props: ContentNewReviewProps) {
   );
 }
 
-export default ContentNewReview;
+export default ContentItemGamePopular;

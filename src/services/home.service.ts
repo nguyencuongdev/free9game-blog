@@ -9,3 +9,12 @@ export const getContentHomePageSerive = async () => {
     throw e;
   }
 };
+
+export const getCategoriesListService = async () => {
+  try {
+    const response = await axiosInstance.get(requestPaths.menu);
+    return response.data;
+  } catch (e) {
+    throw e;
+  }
+};

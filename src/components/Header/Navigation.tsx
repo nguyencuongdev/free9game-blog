@@ -16,19 +16,19 @@ type NavigationProps = {
 export const menuNavigation: MenuNavigationItemType[] = [
   {
     label: 'Reviews Games',
-    href: '/appreviews',
+    href: '/reviews-games',
   },
   {
     label: 'HTML5 Games',
-    href: '/appreviews',
+    href: '/h5-game',
   },
   {
     label: 'Blog',
-    href: '/appreviews',
+    href: '/blogs',
   },
   {
     label: ' About us',
-    href: '/appreviews',
+    href: '/about-us',
   },
 ];
 

@@ -2,22 +2,23 @@ import { Box, Rating, Stack, SxProps, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 
-type ContentNewReviewPopularSmallProps = {
+type ContentItemReviewGameProps = {
   className?: string;
   sx?: SxProps;
-  srcImg: string;
-  title: string;
-  href: string;
-  description?: string;
-  rating: number;
+  gameDescription: string;
+  gameName: string;
+  gameRating: number;
+  imageGame: string;
+  slug: string;
+  type?: string;
 };
 
-function ContentNewReviewPopularSmall(props: ContentNewReviewPopularSmallProps) {
-  const { className, sx, srcImg, title, href, description, rating } = props;
+function ContentItemReviewGame(props: ContentItemReviewGameProps) {
+  const { className, sx, imageGame, gameName, slug, gameDescription, gameRating } = props;
 
   return (
     <Box className={`${className} shadow-sm border p-2 rounded-md mb-4`} sx={{ ...sx }}>
-      <Link href={href}>
+      <Link href={`/blog/reviews-games/${slug}`}>
         <Stack direction='row' spacing={2}>
           <Box
             width='70px'
@@ -30,10 +31,10 @@ function ContentNewReviewPopularSmall(props: ContentNewReviewPopularSmallProps) 
                 borderRadius: '6px',
               },
             }}>
-            <Image src={srcImg} alt='game review 1' width={70} height={70} />
+            <Image src={imageGame} alt='game review 1' width={70} height={70} />
           </Box>
           <Box flex={1}>
-            <Typography className='font-bold text-[16px]'>{title}</Typography>
+            <Typography className='font-bold text-[16px]'>{gameName}</Typography>
             <Typography
               className='text-sm text-[#0b111f80]'
               sx={{
@@ -43,11 +44,11 @@ function ContentNewReviewPopularSmall(props: ContentNewReviewPopularSmallProps) 
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
               }}>
-              {description}
+              {gameDescription}
             </Typography>
             <Rating
               name='simple-controlled'
-              value={rating}
+              value={gameRating}
               readOnly
               sx={{
                 '&>label>span>svg': {
@@ -63,4 +64,4 @@ function ContentNewReviewPopularSmall(props: ContentNewReviewPopularSmallProps) 
   );
 }
 
-export default ContentNewReviewPopularSmall;
+export default ContentItemReviewGame;

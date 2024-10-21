@@ -2,68 +2,15 @@
 
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { ContentNewItem, ContentNewItemByColumn } from '@/components';
+import { IGame } from '@/types';
 
-import imgNewLarge from '@/assets/imgs/topapps1.jpg';
-import imgNew2 from '@/assets/imgs/topapps2.jpg';
-import imgNew3 from '@/assets/imgs/topapps3.jpg';
-import imgNew4 from '@/assets/imgs/topapps4.jpg';
-import imgNew5 from '@/assets/imgs/topapps5.jpg';
-import imgNew6 from '@/assets/imgs/topapps6.jpg';
+type ContentTopAppsProps = {
+  data: IGame[];
+};
 
-const dataContentTopApps = [
-  {
-    id: 1,
-    title: 'Top 10 Virus Remover Apps to Keep Your Devices Safe',
-    srcImg: imgNewLarge.src,
-    description:
-      'In an era where digital threats are becoming increasingly sophisticated, protecting your devices from viruses and malware is essential. Virus remover apps play a crucial role in ensuring the security and integrity of your systems, whether you’re using a PC, Mac, or mobile device. This article delves into the top 10 virus remover apps that',
-    type: 'Top Apps',
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 2,
-    title: 'Top 5 Finance Apps ',
-    srcImg: imgNew2.src,
-    type: 'Top Apps',
-    description: '',
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 3,
-    title: 'Top 10 Beat Maker Apps for Crafting Perfect Tracks',
-    srcImg: imgNew3.src,
-    type: 'Top Apps',
-    description: '',
+function ContentTopApps(props: ContentTopAppsProps) {
+  const { data } = props;
 
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 4,
-    title: 'Top 5 Translate Apps',
-    srcImg: imgNew4.src,
-    type: 'Top Apps',
-    description: '',
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 5,
-    title: 'Top 7 Voice Changer Apps: Transform Your Voice in Fun and Creative Ways',
-    srcImg: imgNew5.src,
-    type: 'Top Apps',
-    description: '',
-    createAt: 'September 18, 2024',
-  },
-  {
-    id: 6,
-    title: 'Comprehensive Tips and Guides for Mastering Genshin Impact ',
-    srcImg: imgNew6.src,
-    description: '',
-    type: 'Top Apps',
-    createAt: 'September 18, 2024',
-  },
-];
-
-function ContentTopApps() {
   return (
     <Container>
       <Box marginTop='48px'>
@@ -91,12 +38,12 @@ function ContentTopApps() {
             <ContentNewItem
               heightImg='420px'
               lg
-              href={`/blog/${dataContentTopApps[0].type}/${dataContentTopApps[0].title}`}
-              srcImg={dataContentTopApps[0].srcImg}
-              type={dataContentTopApps[0].type}
-              title={dataContentTopApps[0].title}
-              description={dataContentTopApps[0].description}
-              createAt={dataContentTopApps[0].createAt}
+              slug={data[0].slug}
+              image={data[0].imageGame}
+              type={data[0].type}
+              name={data[0].gameName}
+              shortContent={data[0].gameDescription}
+              createTime={'Setemper 17 2024'}
               sx={{
                 '& .content-img': {
                   height: {
@@ -124,7 +71,7 @@ function ContentTopApps() {
                 xs: 'none',
               },
             }}>
-            {dataContentTopApps.slice(1, 3).map((item, index) => {
+            {data.slice(1, 3).map((item, index) => {
               return (
                 <Box
                   sx={{
@@ -135,11 +82,11 @@ function ContentTopApps() {
                     sm
                     key={index}
                     heightImg='200px'
-                    href={`/blog/${item.type}/${item.title}`}
-                    srcImg={item.srcImg}
+                    slug={item.slug}
+                    image={item.imageGame}
                     type={item.type}
-                    title={item.title}
-                    createAt={item.createAt}
+                    name={item.gameName}
+                    createTime={'Setemper 17 2024'}
                   />
                 </Box>
               );
@@ -157,18 +104,18 @@ function ContentTopApps() {
                 lg: 'flex',
               },
             }}>
-            {dataContentTopApps.slice(3, dataContentTopApps.length).map((item, index) => {
+            {data.slice(3, data.length).map((item, index) => {
               return (
                 <Grid item lg={4} key={index}>
                   <ContentNewItem
                     sm
                     key={index}
                     heightImg='200px'
-                    href={`/blog/${item.type}/${item.title}`}
-                    srcImg={item.srcImg}
+                    slug={item.slug}
+                    image={item.imageGame}
                     type={item.type}
-                    title={item.title}
-                    createAt={item.createAt}
+                    name={item.gameName}
+                    createTime={'Setemper 17 2024'}
                   />
                 </Grid>
               );
@@ -187,18 +134,18 @@ function ContentTopApps() {
                 md: 'flex',
               },
             }}>
-            {dataContentTopApps.slice(1, 5).map((item, index) => {
+            {data.slice(1, 5).map((item, index) => {
               return (
                 <Grid item lg={4} key={index} xs={12} md={6}>
                   <ContentNewItem
                     sm
                     key={index}
                     heightImg='200px'
-                    href={`/blog/${item.type}/${item.title}`}
-                    srcImg={item.srcImg}
+                    slug={item.slug}
+                    image={item.imageGame}
                     type={item.type}
-                    title={item.title}
-                    createAt={item.createAt}
+                    name={item.gameName}
+                    createTime={'Setemper 17 2024'}
                   />
                 </Grid>
               );
@@ -216,16 +163,16 @@ function ContentTopApps() {
                 xs: 'flex',
               },
             }}>
-            {dataContentTopApps.slice(1, 6).map((item, index) => {
+            {data.slice(1, 6).map((item, index) => {
               return (
                 <Grid item lg={4} key={index} xs={12} md={6}>
                   <ContentNewItemByColumn
                     key={index}
-                    href={`/blog/${item.type}/${item.title}`}
-                    srcImg={item.srcImg}
+                    slug={item.slug}
+                    image={item.imageGame}
                     type={item.type}
-                    title={item.title}
-                    createAt={item.createAt}
+                    name={item.gameName}
+                    createTime={'Setemper 17 2024'}
                   />
                 </Grid>
               );

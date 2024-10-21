@@ -37,12 +37,12 @@ function ContentNews(props: ContentNewsProps) {
             <ContentNewItem
               heightImg='420px'
               lg
-              href={`/detail-blog/${data[0].slug}}`}
-              srcImg={data[0].banner}
+              slug={data[0].slug}
+              image={data[0].image}
               type='News'
-              title={data[0].name}
-              description={data[0].shortContent}
-              createAt={data[0].createTime}
+              name={data[0].name}
+              shortContent={data[0].shortContent}
+              createTime={data[0].createTime}
               sx={{
                 '& .content-img': {
                   height: {
@@ -81,11 +81,11 @@ function ContentNews(props: ContentNewsProps) {
                     sm
                     key={index}
                     heightImg='200px'
-                    href={`/detail-blog/${item.slug}`}
-                    srcImg={item.banner}
+                    slug={item.slug}
+                    image={item.image}
                     type='News'
-                    title={item.name}
-                    createAt={item.createTime}
+                    name={item.name}
+                    createTime={item.createTime}
                   />
                 </Box>
               );
@@ -110,11 +110,11 @@ function ContentNews(props: ContentNewsProps) {
                     sm
                     key={index}
                     heightImg='200px'
-                    href={`/detail-blog/${item.slug}`}
-                    srcImg={item.banner}
+                    slug={item.slug}
+                    image={item.image}
                     type='News'
-                    title={item.name}
-                    createAt={item.createTime}
+                    name={item.name}
+                    createTime={item.createTime}
                   />
                 </Grid>
               );
@@ -140,11 +140,11 @@ function ContentNews(props: ContentNewsProps) {
                     sm
                     key={index}
                     heightImg='200px'
-                    href={`/detail-blog/${item.slug}`}
-                    srcImg={item.banner}
+                    slug={item.slug}
+                    image={item.image}
                     type='News'
-                    title={item.name}
-                    createAt={item.createTime}
+                    name={item.name}
+                    createTime={item.createTime}
                   />
                 </Grid>
               );
@@ -167,11 +167,11 @@ function ContentNews(props: ContentNewsProps) {
                 <Grid item lg={4} key={index} xs={12} md={6}>
                   <ContentNewItemByColumn
                     key={index}
-                    href={`/detail-blog/${item.slug}`}
-                    srcImg={item.banner}
+                    slug={item.slug}
+                    image={item.image}
                     type='News'
-                    title={item.name}
-                    createAt={item.createTime}
+                    name={item.name}
+                    createTime={item.createTime}
                   />
                 </Grid>
               );

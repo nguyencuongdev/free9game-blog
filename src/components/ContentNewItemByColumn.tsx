@@ -6,15 +6,15 @@ import clsx from 'clsx';
 type ContentNewItemByColumnProps = {
   className?: string;
   sx?: SxProps;
-  srcImg: string;
-  title: string;
+  image: string;
+  name: string;
   type: string;
-  href: string;
-  createAt?: string;
+  slug: string;
+  createTime?: string;
 };
 
 function ContentNewItemByColumn(props: ContentNewItemByColumnProps) {
-  const { className, sx, srcImg, title, type, href, createAt } = props;
+  const { className, sx, image, name, type, slug, createTime } = props;
 
   return (
     <Box
@@ -25,7 +25,7 @@ function ContentNewItemByColumn(props: ContentNewItemByColumnProps) {
         },
         ...sx,
       }}>
-      <Link href={href}>
+      <Link href={`/blog/${type}/${slug}`}>
         <Stack direction='row' spacing={2}>
           <Box
             className='relative content-img'
@@ -43,18 +43,18 @@ function ContentNewItemByColumn(props: ContentNewItemByColumnProps) {
                 borderRadius: '6px',
               },
             }}>
-            <Image src={srcImg} alt='ảnh news blog' fill={true} />
+            <Image src={image} alt='ảnh news blog' fill={true} />
             <Typography className='uppercase text-white absolute top-3 left-3 bg-[#00bceb] px-2 py-1 font-bold rounded-md'>
               {type}
             </Typography>
           </Box>
           <Box flex={1}>
             <Typography variant='h4' className={clsx('content-title text-[16px] font-semibold')}>
-              {title}
+              {name}
             </Typography>
-            {createAt && (
+            {createTime && (
               <Typography variant='h6' className='text-[16px] text-[#0b111f80]'>
-                {createAt}
+                {createTime}
               </Typography>
             )}
           </Box>

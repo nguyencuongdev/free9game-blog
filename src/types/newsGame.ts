@@ -4,6 +4,7 @@ export interface INewsGame {
   createTime: string;
   id: number;
   image: string;
+  type: string | null | undefined;
   name: string;
   rating: number;
   shortContent: string;

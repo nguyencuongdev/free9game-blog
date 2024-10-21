@@ -6,19 +6,19 @@ import clsx from 'clsx';
 type ContentNewItemProps = {
   className?: string;
   sx?: SxProps;
-  srcImg: string;
-  title: string;
-  type: string;
-  href: string;
-  description?: string;
-  createAt?: string;
+  image: string;
+  name: string;
+  type: string | null | undefined;
+  slug: string;
+  shortContent?: string;
+  createTime?: string;
   heightImg?: string;
   sm?: boolean;
   lg?: boolean;
 };
 
 function ContentNewItem(props: ContentNewItemProps) {
-  const { className, sx, srcImg, title, type, href, description, createAt, heightImg, sm, lg } = props;
+  const { className, sx, image, name, type, slug, shortContent, createTime, heightImg, sm, lg } = props;
 
   return (
     <Box
@@ -29,7 +29,7 @@ function ContentNewItem(props: ContentNewItemProps) {
         },
         ...sx,
       }}>
-      <Link href={href}>
+      <Link href={`/blog/${type}/${slug}`}>
         <Box
           height={heightImg ? heightImg : lg ? '359px' : sm ? '200px' : ''}
           className='relative content-img'
@@ -45,7 +45,7 @@ function ContentNewItem(props: ContentNewItemProps) {
               borderRadius: '6px',
             },
           }}>
-          <Image src={srcImg} alt='ảnh news blog' fill={true} />
+          <Image src={image} alt='ảnh news blog' fill />
           <Typography
             className='uppercase text-white absolute top-3 left-3 bg-[#00bceb] font-bold rounded-md'
             sx={{
@@ -64,9 +64,9 @@ function ContentNewItem(props: ContentNewItemProps) {
               'text-[28px] font-bold mb-3 whitespace-nowrap overflow-hidden text-ellipsis': lg,
               'text-[18px] font-bold mb-3 whitespace-nowrap overflow-hidden text-ellipsis': sm,
             })}>
-            {title}
+            {name}
           </Typography>
-          {description && (
+          {shortContent && (
             <Typography
               variant='h5'
               className='text-[16px] mb-3 text-justify text-[#0b111f80]'
@@ -80,12 +80,12 @@ function ContentNewItem(props: ContentNewItemProps) {
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
               }}>
-              {description}
+              {shortContent}
             </Typography>
           )}
-          {createAt && (
+          {createTime && (
             <Typography variant='h6' className='text-sm text-[#0b111f80]'>
-              {createAt}
+              {createTime}
             </Typography>
           )}
         </Box>
