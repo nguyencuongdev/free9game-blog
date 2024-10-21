@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getCategoriesListService } from '@/services';
 
-type MenuContentItemType = {
+export type CategoryItemType = {
   id: number;
   requestId: number | null;
   name: string;
@@ -18,8 +18,8 @@ type MenuContentItemType = {
   numberIndex: number | null;
 };
 
-function MenuContent() {
-  const [menu, setMenu] = useState<MenuContentItemType | null>(null);
+function Categories() {
+  const [menu, setMenu] = useState<CategoryItemType | null>(null);
 
   useEffect(() => {
     const getMenuList = async () => {
@@ -29,7 +29,6 @@ function MenuContent() {
         setMenu(data);
       } catch (e) {
         console.log(e);
-      } finally {
       }
     };
     getMenuList();
@@ -59,7 +58,7 @@ function MenuContent() {
         }}>
         {menu &&
           Array.isArray(menu) &&
-          menu.map((item: MenuContentItemType, index: number) => (
+          menu.map((item: CategoryItemType, index: number) => (
             <ListItem
               key={index}
               className='p-0'
@@ -89,4 +88,4 @@ function MenuContent() {
   );
 }
 
-export default MenuContent;
+export default Categories;

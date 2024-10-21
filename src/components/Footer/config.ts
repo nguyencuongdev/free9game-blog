@@ -9,32 +9,6 @@ export type typeMenu = {
   children: typeMenuItem[];
 };
 
-export const menuBlog: typeMenu = {
-  title: 'Blog',
-  children: [
-    {
-      label: 'News',
-      href: '/blog/news',
-    },
-    {
-      label: 'Top Apps',
-      href: '/blog/top-apps',
-    },
-    {
-      label: 'Top Games',
-      href: '/blog/top-games',
-    },
-    {
-      label: 'How-to',
-      href: '/blog/how-to',
-    },
-    {
-      label: 'Tip&Giudes',
-      href: '/blog/tips-guides',
-    },
-  ],
-};
-
 export const menuContact: typeMenu = {
   title: 'Contact',
   children: [

@@ -2,11 +2,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { Box, Button, CircularProgress, Stack } from '@mui/material';
 import Link from 'next/link';
+
 import { getContentHomePageSerive } from '@/services';
 import { IGame, INewsGame } from '@/types';
-
 import {
-  MenuContent,
   ContentHot,
   ContentNews,
   ContentGamesPopular,
@@ -15,6 +14,7 @@ import {
   ContentTipGuide,
 } from '@/containers/Home';
 import { ContextCommon, ContextCommonType } from '@/layouts/DefaultLayout';
+import { Categories } from '@/components';
 
 export default function Home() {
   const { loading, setLoading } = useContext(ContextCommon) as ContextCommonType;
@@ -90,7 +90,7 @@ export default function Home() {
             xs: 'none',
           },
         }}>
-        <MenuContent />
+        <Categories />
       </Box>
       {blogHotList && Array.isArray(blogHotList) && <ContentHot data={blogHotList} />}
       {newsGamesList && Array.isArray(newsGamesList) && <ContentNews data={newsGamesList} />}

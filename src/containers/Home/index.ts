@@ -1,4 +1,4 @@
-export { default as MenuContent } from './MenuContent';
+export { default as MenuContent } from '../../components/Categories';
 export { default as ContentHot } from './ContentHot';
 export { default as ContentNews } from './ContentNews';
 export { default as ContentGamesPopular } from './ContentGamesPopular';
