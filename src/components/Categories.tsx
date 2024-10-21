@@ -76,7 +76,9 @@ function Categories() {
                 },
               }}>
               <Link
-                className={twMerge('inline-block text-center w-full text-xl uppercase hover:text-[#0b111f80]')}
+                className={twMerge(
+                  'inline-block text-center w-full text-xl uppercase hover:text-[#0b111f80] md:text-[18px]',
+                )}
                 href={item.slug}
                 key={index}>
                 {item.name}
