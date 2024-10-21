@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, CircularProgress, Stack } from '@mui/material';
+import { Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/theme';
@@ -14,14 +14,7 @@ export type ContextCommonType = {
 export const ContextCommon = createContext({});
 
 export default function DefaultLayout({ children }: { children: React.ReactNode }) {
-  const [loading, setLoading] = useState<boolean>(false);
-
-  if (loading)
-    return (
-      <Stack direction='row' className='justify-center h-full'>
-        <CircularProgress size='3rem' />
-      </Stack>
-    );
+  const [loading, setLoading] = useState<boolean>(true);
 
   return (
     <ThemeProvider theme={theme}>

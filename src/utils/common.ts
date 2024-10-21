@@ -16,5 +16,18 @@ export function formatDate(date: Date): string {
   const month = date.getMonth() + 1;
   const day = date.getDate();
 
-  return `${day}-${month}-${year}`;
+  return `${day}/${month}${year}`;
+}
+
+export function formatDateTime(date: string) {
+  const d = new Date(date);
+  const day = d.getDate();
+  const month = d.getMonth() + 1;
+  const year = d.getFullYear();
+
+  const hours = d.getHours();
+  const minutes = d.getMinutes();
+  const seconds = d.getSeconds();
+
+  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 }

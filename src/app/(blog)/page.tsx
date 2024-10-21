@@ -1,6 +1,6 @@
 'use client';
-import { useEffect, useState, useContext } from 'react';
-import { Box, Button } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
+import { Box, Button, CircularProgress, Stack } from '@mui/material';
 import Link from 'next/link';
 import { getContentHomePageSerive } from '@/services';
 import { IGame, INewsGame } from '@/types';
@@ -11,7 +11,6 @@ import {
   ContentNews,
   ContentGamesPopular,
   ContentTopGames,
-  ContentTopApps,
   ContentHowTo,
   ContentTipGuide,
 } from '@/containers/Home';
@@ -22,20 +21,33 @@ export default function Home() {
 
   const [blogHotList, setBlogHotList] = useState<INewsGame[] | null>(null);
   const [newsGamesList, setNewsGamesList] = useState<INewsGame[] | null>(null);
+  const [reviewPopularGameList, setReviewPopularGameList] = useState<IGame[] | null>(null);
   const [popularGameList, setPopularGameList] = useState<IGame[] | null>(null);
   const [reviewGamesList, setReviewGamesList] = useState<IGame[] | null>(null);
-  const [newAppsList, setNewAppsList] = useState<IGame[] | null>(null);
   const [howtoList, sethowtoList] = useState<INewsGame[] | null>(null);
   const [tipGuideList, setTipGuideList] = useState<INewsGame[] | null>(null);
 
   useEffect(() => {
     const getContent = async () => {
       try {
+        setLoading(true);
         const response = await getContentHomePageSerive();
-        const { blogHots, news, games, gameReviews, newApps, tipGuides, howto } = response.data;
+        const { blogHots, news, games, gameReviews, tipGuides, howto } = response.data;
         setBlogHotList(blogHots);
         setNewsGamesList(news);
 
+        // Danh sách game có đánh giá phổ biến - giới hạn hiển thị 6 games.
+        const populaRreviewGameListSorted: IGame[] = games
+          .sort((a: IGame, b: IGame): number => {
+            if (a.gameRating === null && b.gameRating !== null) return 1;
+            if (a.gameRating !== null || b.gameRating === null) return -1;
+            if (a.gameRating && b.gameRating)
+              return a.gameRating < b.gameRating ? 1 : a.gameRating > b.gameRating ? -1 : 0;
+            return -1;
+          })
+          .slice(0, 6);
+
+        setReviewPopularGameList(populaRreviewGameListSorted);
         // Danh sách game có lượt chơi nhiều nhất - giới hạn hiển thị 6 games .
         const popularGameListSorted: IGame[] = games
           .sort((a: IGame, b: IGame): number => {
@@ -49,7 +61,6 @@ export default function Home() {
         setPopularGameList(popularGameListSorted);
 
         setReviewGamesList(gameReviews);
-        setNewAppsList(newApps);
         sethowtoList(howto);
         setTipGuideList(tipGuides);
       } catch (e) {
@@ -62,7 +73,13 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log('loading', loading);
+  if (loading) {
+    return (
+      <Stack direction='row' className='justify-center h-[100vh] w-full items-center'>
+        <CircularProgress size='3rem' />
+      </Stack>
+    );
+  }
 
   return (
     <Box>
@@ -77,13 +94,14 @@ export default function Home() {
       </Box>
       {blogHotList && Array.isArray(blogHotList) && <ContentHot data={blogHotList} />}
       {newsGamesList && Array.isArray(newsGamesList) && <ContentNews data={newsGamesList} />}
-      {popularGameList && Array.isArray(popularGameList) && <ContentGamesPopular data={popularGameList} />}
-      {popularGameList && Array.isArray(popularGameList) && reviewGamesList && Array.isArray(reviewGamesList) && (
-        <ContentTopGames gameTop={popularGameList[0]} top5GamesReviewed={reviewGamesList} />
+      {reviewPopularGameList && Array.isArray(reviewPopularGameList) && (
+        <ContentGamesPopular data={reviewPopularGameList} />
       )}
-      {newAppsList && Array.isArray(newAppsList) && <ContentTopApps data={newAppsList} />}
-      {howtoList && Array.isArray(newAppsList) && <ContentHowTo data={howtoList} />}
-      {tipGuideList && Array.isArray(newAppsList) && <ContentTipGuide data={tipGuideList} />}
+      {popularGameList && Array.isArray(popularGameList) && reviewGamesList && Array.isArray(reviewGamesList) && (
+        <ContentTopGames topGames={popularGameList} top5GamesReviewed={reviewGamesList} />
+      )}
+      {howtoList && Array.isArray(howtoList) && <ContentHowTo data={howtoList} />}
+      {tipGuideList && Array.isArray(tipGuideList) && <ContentTipGuide data={tipGuideList} />}
       <Box className='flex justify-center my-10 h-[46px] rounded-md'>
         <Button variant='contained' className='bg-[#00bceb] capitalize'>
           <Link href='/blogs'>More articles</Link>

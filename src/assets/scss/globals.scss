@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {}
+:root {
+
+    --height-header: '50px';
+    --primary-color: '#00bceb';
+}
 
 @media (prefers-color-scheme: dark) {
     :root {}

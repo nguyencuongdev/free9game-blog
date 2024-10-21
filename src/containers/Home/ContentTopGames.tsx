@@ -3,14 +3,15 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 
 import { ContentNewItem, ContentNewItemByColumn, ContentItemReviewGame } from '@/components';
 import { IGame } from '@/types';
+import { formatDateTime } from '@/utils';
 
 type ContentTopGamesProps = {
-  gameTop: IGame;
+  topGames: IGame[];
   top5GamesReviewed: IGame[];
 };
 
 function ContentTopGames(props: ContentTopGamesProps) {
-  const { gameTop, top5GamesReviewed } = props;
+  const { topGames, top5GamesReviewed } = props;
 
   return (
     <Container>
@@ -39,12 +40,12 @@ function ContentTopGames(props: ContentTopGamesProps) {
             <ContentNewItem
               heightImg='420px'
               lg
-              slug={gameTop.slug}
-              image={gameTop.imageGame}
-              type={gameTop.type}
-              name={gameTop.gameName}
-              shortContent={gameTop.gameDescription}
-              createTime={'Setemper 17 2024'}
+              slug={topGames[0].slug}
+              image={topGames[0].imageGame}
+              type={topGames[0].type}
+              name={topGames[0].gameName}
+              shortContent={topGames[0].gameDescription}
+              createTime={formatDateTime(new Date().toString())}
               sx={{
                 '& .content-img': {
                   height: {
@@ -72,7 +73,7 @@ function ContentTopGames(props: ContentTopGamesProps) {
               </Typography>
             </Box>
             <Box className='mt-4'>
-              {top5GamesReviewed.slice(1, 6).map((item, index) => {
+              {top5GamesReviewed.slice(0, 5).map((item, index) => {
                 return (
                   <ContentItemReviewGame
                     key={index}
@@ -86,7 +87,7 @@ function ContentTopGames(props: ContentTopGamesProps) {
               })}
             </Box>
           </Grid>
-          {/* Nội dung nhỏ bên dưới theo PC */}
+          {/* Nội dung nhỏ bên dưới theo PC, tablet */}
           <Grid
             item
             container
@@ -94,40 +95,11 @@ function ContentTopGames(props: ContentTopGamesProps) {
             spacing={3}
             sx={{
               display: {
-                lg: 'flex',
-                xs: 'none',
-              },
-            }}>
-            {top5GamesReviewed.slice(5, top5GamesReviewed.length).map((item, index) => {
-              return (
-                <Grid item lg={4} key={index} md={6} xs={12}>
-                  <ContentNewItem
-                    heightImg='200px'
-                    sm
-                    slug={item.slug}
-                    image={item.imageGame}
-                    type={item.type}
-                    name='Top Games'
-                    createTime={'Setemper 17 2024'}
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
-          {/* Nội dung nhỏ bên dưới trên tablet*/}
-          <Grid
-            item
-            container
-            xs={12}
-            spacing={3}
-            sx={{
-              display: {
-                lg: 'none',
                 md: 'flex',
                 xs: 'none',
               },
             }}>
-            {top5GamesReviewed.slice(5, top5GamesReviewed.length).map((item, index) => {
+            {topGames.slice(1, topGames.length).map((item, index) => {
               return (
                 <Grid item lg={4} key={index} md={6} xs={12}>
                   <ContentNewItem
@@ -137,7 +109,7 @@ function ContentTopGames(props: ContentTopGamesProps) {
                     image={item.imageGame}
                     type={item.type}
                     name={item.gameName}
-                    createTime={'Setemper 17 2024'}
+                    createTime={formatDateTime(new Date().toString())}
                   />
                 </Grid>
               );
@@ -155,7 +127,7 @@ function ContentTopGames(props: ContentTopGamesProps) {
                 xs: 'flex',
               },
             }}>
-            {top5GamesReviewed.slice(5, top5GamesReviewed.length).map((item, index) => {
+            {topGames.slice(1, topGames.length).map((item, index) => {
               return (
                 <Grid item lg={4} key={index} xs={12} md={6}>
                   <ContentNewItemByColumn
@@ -164,7 +136,7 @@ function ContentTopGames(props: ContentTopGamesProps) {
                     image={item.imageGame}
                     type={item.type}
                     name={item.gameName}
-                    createTime={'Setemper 17 2024'}
+                    createTime={formatDateTime(new Date().toString())}
                   />
                 </Grid>
               );
